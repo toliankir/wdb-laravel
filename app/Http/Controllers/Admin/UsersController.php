@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -19,9 +20,9 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::get();
-       return view('admin.users.index', [
-           'users' => $users
-       ]);
+        return view('admin.users.index', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -40,11 +41,19 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -59,7 +68,7 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -70,7 +79,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -85,8 +94,8 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -98,11 +107,11 @@ class UsersController extends Controller
             'type' => $this->USERS_TYPES[$request->type]
         ];
 
-        if (isset($request->password)){
+        if (isset($request->password)) {
             $updateArray['password'] = Hash::make($request->password);
         }
 
-        User::where('id',$id) ->update($updateArray);
+        User::where('id', $id)->update($updateArray);
 
         return redirect(route('admin.users.index'));
     }
@@ -110,7 +119,7 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
