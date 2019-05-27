@@ -20,7 +20,7 @@
 </p>
 <p>
     {{ Form::label('type', 'User type', ['class' => 'control-label']) }}
-    {{ Form::select('type', $roles, !empty($user) ? $roles->search($user->roleIs->role): '',
+    {{ Form::select('type', $roles, !empty($user) & $user->type ? $roles->search($user->roleIs->role): '',
                  [
                     'class' => 'form-group',
                     'placeholder' => 'User type'

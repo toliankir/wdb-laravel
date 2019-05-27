@@ -21,9 +21,9 @@ class Role
     {
 //        $request->user()->test('123');
         if ($request->user()) {
-            if ($role !== $request->user()->roleIs->role) {
-            return redirect('/');
-            }
+//            if ($role !== $request->user()->roleIs->role) {
+//            return redirect('/');
+//            }
 
         }
 

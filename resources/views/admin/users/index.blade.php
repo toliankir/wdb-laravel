@@ -20,7 +20,7 @@
                     <th>{{$user->id}}</th>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
-                    <td>{{$user->roleIs->role}}</td>
+                    <td>{{$user->type ? $user->roleIs->role : ''}}</td>
                     <td>{{$user->active ? 'Yes' : 'No'}}</td>
                     <td>
 
