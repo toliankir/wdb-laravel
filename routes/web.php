@@ -21,6 +21,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     Route::group(['middleware' => 'role:admin'], function () {
         Route::resource('/users', 'UsersController', ['as' => 'admin']);
         Route::resource('/roles', 'RolesController', ['as' => 'admin']);
+        Route::resource('/permissions', 'PermissionController', ['as' => 'admin']);
     });
 });
 

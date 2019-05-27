@@ -19,6 +19,7 @@ class Role
      */
     public function handle($request, Closure $next, $role = null)
     {
+//        var_dump($request->getPathInfo());
 //        $request->user()->test('123');
         if ($request->user()) {
 //            if ($role !== $request->user()->roleIs->role) {
