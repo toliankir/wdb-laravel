@@ -20,8 +20,8 @@
                     <th>{{$user->id}}</th>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
-                    <td>{{$user->type}}</td>
-                    <td>{{$user->active ? 'Yes' : 'No' }}</td>
+                    <td>{{$user->roleIs->role}}</td>
+                    <td>{{$user->active ? 'Yes' : 'No'}}</td>
                     <td>
 
                         {!! Form::open(['url' => route('admin.users.destroy', $user->id), 'method' => 'DELETE']) !!}
@@ -40,7 +40,7 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="6" >
+                <td colspan="6">
                     {!! Form::open(['url' => route('admin.users.create'), 'method' => 'GET', 'class' => 'float-right']) !!}
                     {{ Form::button('Create new user', ['type' => 'submit', 'class' => 'btn btn-info'])}}
                     {!! Form::close() !!}

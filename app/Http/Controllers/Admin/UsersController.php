@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -15,8 +15,6 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    private $USERS_TYPES = ['admin', 'user'];
-
     public function index()
     {
         $users = User::get();
@@ -32,33 +30,34 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $roles = Role::get()->map(function ($role) {
+            return $role['role'];
+        });
         return view('admin.users.create', [
             'user' => [],
-            'usersTypes' => $this->USERS_TYPES
+            'roles' => $roles
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
-
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'active' => $request->active ? true : false,
-            'type' => $this->USERS_TYPES[$request->type],
+            'type' => $request->type + 1,
             'password' => Hash::make($request->password)
         ]);
 
@@ -85,10 +84,12 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        $roles = Role::get()->map(function ($role) {
+            return $role['role'];
+        });
         return view('admin.users.edit', [
             'user' => $user,
-            'usersTypes' => $this->USERS_TYPES
-        ]);
+            'roles' => $roles]);
     }
 
     /**
@@ -104,7 +105,7 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'active' => $request->active ? true : false,
-            'type' => $this->USERS_TYPES[$request->type]
+            'type' => $request->type + 1
         ];
 
         if (isset($request->password)) {

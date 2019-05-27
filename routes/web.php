@@ -15,9 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'DashboardController@index');
-    Route::resource('/users', 'UsersController', ['as' => 'admin']);
+
+    Route::group(['middleware' => 'role:admin'], function () {
+        Route::resource('/users', 'UsersController', ['as' => 'admin']);
+        Route::resource('/roles', 'RolesController', ['as' => 'admin']);
+    });
 });
 
 Auth::routes();
