@@ -17,15 +17,22 @@ class Role
      * @param null $role
      * @return mixed
      */
-    public function handle($request, Closure $next, $role = null)
+    public function handle($request, Closure $next)
     {
-//        var_dump($request->getPathInfo());
-//        $request->user()->test('123');
         if ($request->user()) {
-//            if ($role !== $request->user()->roleIs->role) {
-//            return redirect('/');
-//            }
-
+            foreach ($request->user()->getPermissions() as $permission) {
+                if ($permission->permission[0] === '!') {
+                    $pattern = '/' . str_replace('*', '.*', str_replace('/', '\/', ltrim($permission->permission, '!'))) . '/';
+                    if (preg_match($pattern, $request->getPathInfo())) {
+                        return redirect('/');
+                    }
+                } else {
+                    $pattern = '/' . str_replace('*', '.*', str_replace('/', '\/', $permission->permission)) . '/';
+                    if (preg_match($pattern, $request->getPathInfo())) {
+                        return $next($request);
+                    }
+                }
+            }
         }
 
         return $next($request);

@@ -12,6 +12,7 @@
                 <th>Type</th>
                 <th>Active</th>
                 <th>Action</th>
+                <th>Permissions</th>
             </tr>
             </thead>
             <tbody>
@@ -39,7 +40,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6">No data.</td>
+                    <td colspan="7">No data.</td>
                 </tr>
 
 
@@ -47,7 +48,7 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="6">
+                <td colspan="7">
                     {!! Form::open(['url' => route('admin.users.create'), 'method' => 'GET', 'class' => 'float-right']) !!}
                     {{ Form::button('Create new user', ['type' => 'submit', 'class' => 'btn btn-info'])}}
                     {!! Form::close() !!}

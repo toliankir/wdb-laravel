@@ -3,32 +3,38 @@
 @section('content')
     <div class="container">
         <h1>Role - {{$role_name}}</h1>
-        <table class="table">
+          <table class="table">
             <thead>
             <tr>
                 <th>#id</th>
                 <th>Permission</th>
+                <th>Position</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
 
-                @forelse ($test->getPermissions() as $permission)
-                    <tr>
-                        <td>{{$permission->id}}</td>
-                        <td>{{$permission->permission}}</td>
-                        <td>
-
-                            {!! Form::open(['url' => route('admin.permissions.destroy', $permission->id), 'method' => 'DELETE']) !!}
-                            {{Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm'])}}
-                            {!! Form::close() !!}
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="3">No permissions</td>
-                    </tr>
-                    @endforelse
+            @forelse ($permissions as $permission)
+                <tr>
+                    <td>{{$permission->id}}</td>
+                    <td>{{$permission->permission}}</td>
+                    <td>
+                        <a class="btn btn-info btn-sm" href="{{route('admin.permission.up', $permission->id)}}">Up</a>
+                        <a class="btn btn-info btn-sm"
+                           href="{{route('admin.permission.down', $permission->id)}}">Down</a>
+                    </td>
+                    <td>
+                        {!! Form::open(['url' => route('admin.permissions.destroy', $permission->id), 'method' => 'DELETE']) !!}
+                        {{Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm'])}}
+                        <a class="btn btn-success btn-sm" href="{{route('admin.permissions.edit', $permission->id)}}">Edit</a>
+                        {!! Form::close() !!}
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="3">No permissions</td>
+                </tr>
+            @endforelse
             </tbody>
             <tfoot>
             <tr>
@@ -48,7 +54,5 @@
             </tr>
             </tfoot>
         </table>
-        Permissions
-        {{$role_id}}
     </div>
 @endsection

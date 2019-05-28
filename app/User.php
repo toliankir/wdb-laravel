@@ -42,7 +42,11 @@ class User extends Authenticatable
     }
 
     public function getPermissions(){
-        return $this->getRole()->get()->first()->getPermissions();
+        $role = $this->getRole();
+        if ($role->get()->first()) {
+            return $role->get()->first()->getPermissions();
+        }
+        return [];
     }
 
     public function roleIs()

@@ -11,7 +11,7 @@ class Role extends Model
     ];
 
     public function getPermissions() {
-        return $this->hasMany('App\Permission', 'role_id', 'id')->get();
+        return $this->hasMany('App\Permission', 'role_id', 'id')->orderBy('order', 'asc')->get();
     }
 
 }

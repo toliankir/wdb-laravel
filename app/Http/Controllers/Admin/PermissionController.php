@@ -55,12 +55,14 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $roleName = Role::find($id)->role;
-        $test = Auth::user()->getRole()->get()->first();
+        $role = Role::find($id);
+        $roleName = $role->role;
+        $user = Auth::user()->getRole()->get()->first();
         return view('admin.permissions.show', [
             'role_id' => $id,
             'role_name' => $roleName,
-            'test' => $test
+            'permissions' => $role->getPermissions(),
+            'max_order' => $this->getMaxOrderValue($id)
         ]);
     }
 
@@ -72,7 +74,10 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-
+        $permission = Permission::find($id);
+        return view('admin.permissions.edit', [
+            'permission' => $permission
+        ]);
     }
 
     /**
@@ -84,7 +89,9 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permission = Permission::find($id);
+        $permission->update(['permission' => $request->permission]);
+        return redirect(route('admin.permissions.show', $permission->role_id));
     }
 
     /**
@@ -96,6 +103,52 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         Permission::find($id)->delete();
+        return redirect()->back();
+    }
+
+    private function getMaxOrderValue($role_id)
+    {
+        $item = Permission::where('role_id', $role_id)->orderBy('order', 'desc')->first();
+        if ($item) {
+            return $item->order;
+        }
+        return 0;
+    }
+
+    public function up($permission_id)
+    {
+        $handlePermission = Permission::find($permission_id);
+        $handleOrder = $handlePermission->order;
+        $roleId = $handlePermission->role_id;
+
+        if ($handleOrder > 0) {
+            $previewByOrder = Permission::where('role_id', $roleId)->where('order', $handleOrder - 1)->first();
+            $previewByOrder->update([
+                'order' => $handleOrder
+            ]);
+            $handlePermission->update([
+                'order' => $handleOrder - 1
+            ]);
+        }
+        return redirect()->back();
+    }
+
+    public function down($permission_id)
+    {
+        $handlePermission = Permission::find($permission_id);
+        $handleOrder = $handlePermission->order;
+        $roleId = $handlePermission->role_id;
+        $maxOrder = $this->getMaxOrderValue($roleId);
+
+        if ($handleOrder < $maxOrder) {
+            $nextByOrder = Permission::where('role_id', $roleId)->where('order', $handleOrder + 1)->first();
+            $nextByOrder->update([
+                'order' => $handleOrder
+            ]);
+            $handlePermission->update([
+                'order' => $handleOrder + 1
+            ]);
+        }
         return redirect()->back();
     }
 }

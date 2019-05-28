@@ -18,11 +18,17 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'DashboardController@index');
 
-    Route::group(['middleware' => 'role:admin'], function () {
+    Route::group(['middleware' => 'role'], function () {
         Route::resource('/users', 'UsersController', ['as' => 'admin']);
         Route::resource('/roles', 'RolesController', ['as' => 'admin']);
         Route::resource('/permissions', 'PermissionController', ['as' => 'admin']);
+
+        Route::get('/permissions/up/{id}', 'PermissionController@up')->name('admin.permission.up');
+        Route::get('/permissions/down/{id}', 'PermissionController@down')->name('admin.permission.down');
     });
+});
+Route::group(['middleware' => 'role'], function () {
+    Route::resource('/posts', 'PostsController');
 });
 
 Auth::routes();
