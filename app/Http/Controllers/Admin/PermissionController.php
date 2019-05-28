@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Permission;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use test\Mockery\ReturnTypeObjectTypeHint;
 
 class PermissionController extends Controller
 {
@@ -36,7 +39,12 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Permission::create([
+            'permission' => $request->permission,
+            'role_id' => $request->role_id,
+        ]);
+
+        return redirect(route('admin.permissions.show', $request->role_id));
     }
 
     /**
@@ -48,10 +56,11 @@ class PermissionController extends Controller
     public function show($id)
     {
         $roleName = Role::find($id)->role;
-
+        $test = Auth::user()->getRole()->get()->first();
         return view('admin.permissions.show', [
             'role_id' => $id,
-            'role_name' => $roleName
+            'role_name' => $roleName,
+            'test' => $test
         ]);
     }
 
@@ -86,6 +95,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Permission::find($id)->delete();
+        return redirect()->back();
     }
 }

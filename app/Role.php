@@ -10,4 +10,8 @@ class Role extends Model
         'role'
     ];
 
+    public function getPermissions() {
+        return $this->hasMany('App\Permission', 'role_id', 'id')->get();
+    }
+
 }

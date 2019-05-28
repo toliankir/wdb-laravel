@@ -29,6 +29,13 @@
                         {{Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm'])}}
                         {!! Form::close() !!}
                     </td>
+                    <td>
+                        @forelse ($user->getPermissions() as $permission)
+                            {{$permission->permission}}<br>
+                            @empty
+                            No permissions
+                        @endforelse
+                    </td>
                 </tr>
             @empty
                 <tr>

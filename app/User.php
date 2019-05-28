@@ -37,6 +37,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getRole() {
+         return $this->hasOne('App\Role', 'id', 'type');
+    }
+
+    public function getPermissions(){
+        return $this->getRole()->get()->first()->getPermissions();
+    }
+
     public function roleIs()
     {
         if ($role = $this->hasOne('App\Role', 'id', 'type')->get()->first()) {

@@ -36,7 +36,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
 
-                    @if (\Illuminate\Support\Facades\Auth::user()->roleIs()=== 'admin')
+                    @if (\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->roleIs() === 'admin' )
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
