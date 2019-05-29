@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
@@ -15,9 +16,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $ownPosts = Post::where('created_by', Auth::id())->get();
-        return view('posts.index', [
-            'own_posts' => $ownPosts
+        $posts = Post::get();
+        return view('admin.posts.index', [
+            'posts' => $posts
         ]);
     }
 
@@ -28,36 +29,24 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => ['required', 'string', 'min:3', 'max:255'],
-            'body' => ['required', 'string', 'min:10', 'max:1024'],
-        ]);
-
-        Post::create([
-            'title' => $request->title,
-            'body' => $request->body,
-            'created_by' => Auth::id()
-        ]);
-
-        return redirect(route('posts.index'));
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -68,12 +57,15 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('admin.posts.edit', [
+            'post' => $post
+        ]);
     }
 
     /**
@@ -82,20 +74,32 @@ class PostsController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => ['required', 'string', 'min:3', 'max:255'],
+            'body' => ['required', 'string', 'max:128', 'max:1024'],
+        ]);
+
+        Post::find($id)->update([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+
+        return redirect(route('admin.posts.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+        return redirect(route('admin.posts.index'));
     }
 }

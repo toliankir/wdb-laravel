@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function roleIs()
     {
-        if ($role = $this->hasOne('App\Role', 'id', 'type')->get()->first()) {
+        if ($role = $this->hasOne('App\Role', 'id', 'type')->first()) {
             return $role->role;
         }
         return false;

@@ -32,13 +32,13 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3">No permissions</td>
+                    <td colspan="4">No permissions</td>
                 </tr>
             @endforelse
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="3">
+                <td colspan="4">
                     {!! Form::open(['url' => route('admin.permissions.store'),'method' => 'POST', 'class' => 'float-right']) !!}
                     {{ Form::hidden('role_id', $role_id)}}
                     {{ Form::text('permission',

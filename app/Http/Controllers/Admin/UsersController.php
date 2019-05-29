@@ -57,7 +57,7 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'active' => $request->active ? true : false,
-            'type' => $request->type + 1,
+            'type' => $request->type,
             'password' => Hash::make($request->password)
         ]);
 
@@ -84,9 +84,11 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::get()->map(function ($role) {
-            return $role['role'];
-        });
+        $roles = [];
+        foreach (Role::get() as $role) {
+            $roles[$role->id] = $role['role'];
+        }
+
         return view('admin.users.edit', [
             'user' => $user,
             'roles' => $roles]);
@@ -105,7 +107,7 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'active' => $request->active ? true : false,
-            'type' => $request->type + 1
+            'type' => $request->type
         ];
 
         if (isset($request->password)) {
