@@ -42,7 +42,18 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'active' => 1], $request->remember)) {
-            return redirect()->intended('admin');
+            $user = Auth::user();
+            if ($user) {
+                switch ($user->roleIs()) {
+                    case 'admin':
+                        return redirect(route('admin.dashboard'));
+                        break;
+                    case 'user':
+                        return redirect(route('posts.index'));
+                        break;
+                }
+            }
+            return redirect()->intended();
         }
         return redirect()->to('login')->withErrors('message', 'IT WORKS!');
     }
