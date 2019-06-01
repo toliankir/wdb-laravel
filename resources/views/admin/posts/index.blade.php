@@ -10,7 +10,7 @@
                 <th>Title</th>
                 <th>Body(100chars)</th>
                 <th>Owner</th>
-                <th>Actions</th>
+                <th class="w-15">Actions</th>
             </tr>
             </thead>
             <tbody>
