@@ -15,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $ownPosts = Post::where('created_by', Auth::id())->get();
+        $ownPosts = Post::where('created_by', Auth::id())->paginate(5);
         return view('posts.index', [
             'own_posts' => $ownPosts
         ]);

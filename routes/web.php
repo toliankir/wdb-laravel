@@ -16,7 +16,6 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth', 'role']], function () {
-//    Route::resource('/posts', 'PostsController');
     Route::get('/posts', 'PostsController@index')->name('posts.index');
     Route::post('/posts', 'PostsController@store')->name('posts.store');
     Route::get('/posts/create', 'PostsController@create')->name('posts.create');

@@ -40,12 +40,15 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
-            'role' => ['required', 'string', 'max:255']
+            'role' => ['required', 'string', 'max:32'],
+            'homepage' => ['required', 'string', 'max:128', 'regex:/\/.*/']
         ]);
 
         Role::create([
-            'role' => $request->role
+            'role' => $request->role,
+            'homepage' => $request->homepage
         ]);
 
         return redirect(route('admin.roles.index'));

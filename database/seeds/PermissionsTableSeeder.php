@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,17 +15,23 @@ class PermissionsTableSeeder extends Seeder
     {
         DB::table('permissions')->insert([
             'role_id' => '1',
-            'permission' => '*'
+            'permission' => '*',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
         DB::table('permissions')->insert([
             'role_id' => '2',
-            'permission' => '/posts*'
+            'permission' => '/posts*',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
         DB::table('permissions')->insert([
             'role_id' => '2',
-            'permission' => '!*'
+            'permission' => '!*',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
 

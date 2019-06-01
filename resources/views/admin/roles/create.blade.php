@@ -12,19 +12,7 @@
             </div>
         @endif
         {!! Form::open(['url' => route('admin.roles.store'),'method' => 'POST']) !!}
-        <p>
-            {{ Form::label('name', 'Role', ['class' => 'control-label']) }}
-            {{ Form::text('role',
-                 old('role') ? old('role') : null,
-                 [
-                    'class' => 'form-group user-email',
-                    'placeholder' => 'Role',
-                 ])
-            }}
-        </p>
-        <p>
-            {{ Form::submit('Submit Form')}}
-        </p>
+        @include('admin.roles.form')
         {!! Form::close() !!}
     </div>
 @endsection

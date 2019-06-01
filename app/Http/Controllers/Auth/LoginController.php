@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class LoginController extends Controller
 {
@@ -41,13 +43,24 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return redirect()->to('login')->withErrors(['email' => 'Unknown user e-mail']);
+        }
+
+        if ($user && (!$user->active)) {
+            return redirect()->to('login')->withErrors(['active' => 'User must be activated']);
+        }
+
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'active' => 1], $request->remember)) {
             $user = Auth::user();
             if ($user) {
                 return redirect($user->getRole()->homepage);
             }
-            return redirect()->intended();
         }
-        return redirect()->to('login')->withErrors('message', 'IT WORKS!');
+        return redirect()->to('login')
+            ->withInput(Input::except('password'))
+            ->withErrors(['password' => 'Wrong username/password combination']);
     }
 }

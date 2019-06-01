@@ -43,16 +43,7 @@
             <tfoot>
             <tr>
                 <td colspan="4">
-                    {!! Form::open(['url' => route('admin.roles.store'),'method' => 'POST', 'class' => 'float-right']) !!}
-                    {{ Form::text('role',
-                         old('role') ? old('role') : null,
-                         [
-                            'class' => 'form-group user-email',
-                            'placeholder' => 'Role',
-                         ])
-                    }}
-                    {{ Form::button('Create new role', ['type' => 'Submit', 'class' => 'btn btn-info'])}}
-                    {!! Form::close() !!}
+                    <a class="btn btn-info float-right" href="{{route('admin.roles.create')}}">Create new role</a>
                 </td>
             </tr>
             </tfoot>

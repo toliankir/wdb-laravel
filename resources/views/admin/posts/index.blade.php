@@ -34,6 +34,13 @@
             @endforelse
             </tbody>
             <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div class="d-flex justify-content-center">
+                        {{$posts->links()}}
+                    </div>
+                </td>
+            </tr>
             </tfoot>
         </table>
     </div>

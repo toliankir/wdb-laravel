@@ -14,7 +14,7 @@
          old('homepage') ? old('homepage') : (!empty($role) ? $role->homepage : null),
          [
             'class' => 'form-group user-email',
-            'placeholder' => 'Homepage',
+            'placeholder' => '/somepage*',
          ])
     }}
 </p>

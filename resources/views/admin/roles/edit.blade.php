@@ -2,6 +2,15 @@
 
 @section('content')
     <div class="container">
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <h1>Role: {{$role->role}}</h1>
         {!! Form::open(['url' => route('admin.roles.update', $role->id),'method' => 'PUT']) !!}
         @include('admin.roles.form')
