@@ -44,14 +44,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'active' => 1], $request->remember)) {
             $user = Auth::user();
             if ($user) {
-                switch ($user->roleIs()) {
-                    case 'admin':
-                        return redirect(route('admin.dashboard'));
-                        break;
-                    case 'user':
-                        return redirect(route('posts.index'));
-                        break;
-                }
+                return redirect($user->getRole()->homepage);
             }
             return redirect()->intended();
         }

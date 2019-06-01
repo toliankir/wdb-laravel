@@ -16,6 +16,7 @@
             <tr>
                 <th>id</th>
                 <th>Role name</th>
+                <th>Homepage</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -24,22 +25,24 @@
                 <tr>
                     <th>{{$role->id}}</th>
                     <td>{{$role->role}}</td>
+                    <td>{{$role->homepage}}</td>
                     <td class="w-25">
                         {!! Form::open(['url' => route('admin.roles.destroy', $role->id), 'method' => 'DELETE']) !!}
+                        <a class="btn btn-sm btn-success" href="{{route('admin.roles.edit', $role->id)}}">Edit</a>
+                        <a class="btn btn-sm btn-info" href="{{route('admin.permissions.show', $role->id)}}">Permissions</a>
                         {{Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm'])}}
-                        <a class="btn btn-sm btn-success" href="{{route('admin.permissions.show', $role->id)}}">Permissions</a>
                         {!! Form::close() !!}
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3">No roles in base</td>
+                    <td colspan="4">No roles in base</td>
                 </tr>
             @endforelse
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="3">
+                <td colspan="4">
                     {!! Form::open(['url' => route('admin.roles.store'),'method' => 'POST', 'class' => 'float-right']) !!}
                     {{ Form::text('role',
                          old('role') ? old('role') : null,

@@ -70,7 +70,10 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::find($id);
+        return view('admin.roles.edit', [
+            'role' => $role
+        ]);
     }
 
     /**

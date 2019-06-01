@@ -38,12 +38,12 @@ class User extends Authenticatable
     ];
 
     public function getRole() {
-         return $this->hasOne('App\Role', 'id', 'type');
+         return $this->hasOne('App\Role', 'id', 'type')->first();
     }
 
     public function getPermissions(){
         $role = $this->getRole();
-        if ($role->get()->first()) {
+        if ($role) {
             return $role->get()->first()->getPermissions();
         }
         return [];

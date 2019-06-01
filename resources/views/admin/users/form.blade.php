@@ -45,5 +45,5 @@
     }}
 </p>
 <p>
-    {{ Form::submit('Submit Form')}}
+    {{ Form::submit('Submit Form', ['class' => 'btn btn-success'])}}
 </p>
