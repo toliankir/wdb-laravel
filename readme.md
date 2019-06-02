@@ -13,6 +13,7 @@
 * Run `php artisan db:seed`. It is fills database tables by start data. 
 * Run `php artisan key:generate`. It is generates new unique key and save it's in .env file.
 * Run `php artisan serve`. It is runs simple http server with your application.
+* You must take write permission to `storege` folder.
 * Application available on localhost:8000 in your browser.
 * Application available on address `localhost:8000` in your browser.
 
