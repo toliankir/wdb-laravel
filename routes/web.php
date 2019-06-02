@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('homepage');
 
 Route::group(['middleware' => ['auth', 'role']], function () {
     Route::get('/posts', 'PostsController@index')->name('posts.index');
