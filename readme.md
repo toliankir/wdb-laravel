@@ -21,10 +21,9 @@
 * Login first. On start application already have two user: 
    - email `admin@test.com`, password `12345678`
    - email `user@test.com`, password `12345678`
-* You can create your own user. But for work, it is mast be activate by admin.
-* Also on start application have two roles and permissions  
+* You can create your own user. But for work it is mast be activate by admin.
 * Also on start application have two roles and permissions for them. You can change them in admin mode.
-* By default users may make all requests. By permissions you can control user request. For example, you can forbid all user request using `!*` permission. `!` - mean forbid, `*` - all mask. Or you can allow only `localhost:8000/posts` page if you use first permission - `/posts*`, second - `!*`.
+* By default users may make all requests. By permissions you can control user requests. For example, you can forbid all user request using `!*` permission. `!` - mean forbid, `*` - all mask. Or you can allow only `localhost:8000/posts` page if you use first permission - `/posts*`, second - `!*`.
 * You can change, add or delete users, roles, permissions, users posts in admin mode.
 * All admin feature available by menu `Admin` in left top part of page.
 * User can only create post and save it is to database.
