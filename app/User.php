@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'type', 'active'
+        'name', 'email', 'password', 'role_id', 'active'
     ];
 
     /**
@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
     public function getRole() {
-         return $this->hasOne('App\Role', 'id', 'type')->first();
+         return $this->hasOne('App\Role', 'id', 'role_id')->first();
     }
 
     public function getPermissions(){
@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function roleIs()
     {
-        if ($role = $this->hasOne('App\Role', 'id', 'type')->first()) {
+        if ($role = $this->hasOne('App\Role', 'id', 'role_id')->first()) {
             return $role->role;
         }
         return false;
