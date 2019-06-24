@@ -16,29 +16,29 @@ Route::get('/', function () {
 })->middleware('homepage');
 
 Route::group(['middleware' => ['auth', 'role']], function () {
-    Route::get('/posts', 'PostsController@index')->name('posts.index');
-    Route::post('/posts', 'PostsController@store')->name('posts.store');
-    Route::get('/posts/create', 'PostsController@create')->name('posts.create');
+    Route::get('/posts', 'PostController@index')->name('posts.index');
+    Route::post('/posts', 'PostController@store')->name('posts.store');
+    Route::get('/posts/create', 'PostController@create')->name('posts.create');
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/', 'DashboardController@index')->name('admin.dashboard');
-        Route::get('/posts', 'PostsController@index')->name('admin.posts.index');
-        Route::get('/posts/{post}/edit', 'PostsController@edit')->name('admin.posts.edit');
-        Route::put('/posts/{post}', 'PostsController@update')->name('admin.posts.update');
-        Route::delete('/posts/{post}', 'PostsController@destroy')->name('admin.posts.destroy');
+        Route::get('/posts', 'PostController@index')->name('admin.posts.index');
+        Route::get('/posts/{post}/edit', 'PostController@edit')->name('admin.posts.edit');
+        Route::put('/posts/{post}', 'PostController@update')->name('admin.posts.update');
+        Route::delete('/posts/{post}', 'PostController@destroy')->name('admin.posts.destroy');
 
-        Route::get('/users', 'UsersController@index')->name('admin.users.index');
-        Route::get('/users/create', 'UsersController@create')->name('admin.users.create');
-        Route::post('/users', 'UsersController@store')->name('admin.users.store');
-        Route::get('/users/{user}/edit', 'UsersController@edit')->name('admin.users.edit');
-        Route::put('/users/{user}', 'UsersController@update')->name('admin.users.update');
-        Route::delete('/users/{user}', 'UsersController@destroy')->name('admin.users.destroy');
+        Route::get('/users', 'UserController@index')->name('admin.users.index');
+        Route::get('/users/create', 'UserController@create')->name('admin.users.create');
+        Route::post('/users', 'UserController@store')->name('admin.users.store');
+        Route::get('/users/{user}/edit', 'UserController@edit')->name('admin.users.edit');
+        Route::put('/users/{user}', 'UserController@update')->name('admin.users.update');
+        Route::delete('/users/{user}', 'UserController@destroy')->name('admin.users.destroy');
 
-        Route::get('/roles', 'RolesController@index')->name('admin.roles.index');
-        Route::get('/roles/create', 'RolesController@create')->name('admin.roles.create');
-        Route::post('/roles', 'RolesController@store')->name('admin.roles.store');
-        Route::get('/roles/{user}/edit', 'RolesController@edit')->name('admin.roles.edit');
-        Route::delete('/roles/{user}', 'RolesController@destroy')->name('admin.roles.destroy');
+        Route::get('/roles', 'RoleController@index')->name('admin.roles.index');
+        Route::get('/roles/create', 'RoleController@create')->name('admin.roles.create');
+        Route::post('/roles', 'RoleController@store')->name('admin.roles.store');
+        Route::get('/roles/{user}/edit', 'RoleController@edit')->name('admin.roles.edit');
+        Route::delete('/roles/{user}', 'RoleController@destroy')->name('admin.roles.destroy');
 
         Route::post('/permissions', 'PermissionController@store')->name('admin.permissions.store');
         Route::post('/permissions/{permission}', 'PermissionController@show')->name('admin.permissions.show');
