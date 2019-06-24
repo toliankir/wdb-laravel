@@ -2,6 +2,10 @@
 
 @section('content')
     <div class="container">
+        123
+        @can('create', App\Post::class)
+            IsAdmin
+        @endcan
         <h1>Posts</h1>
         <table class="table table-striped">
             <thead>
