@@ -27,9 +27,24 @@ Route::group(['middleware' => ['auth', 'role']], function () {
         Route::put('/posts/{post}', 'PostsController@update')->name('admin.posts.update');
         Route::delete('/posts/{post}', 'PostsController@destroy')->name('admin.posts.destroy');
 
-        Route::resource('/users', 'UsersController', ['as' => 'admin']);
-        Route::resource('/roles', 'RolesController', ['as' => 'admin']);
-        Route::resource('/permissions', 'PermissionController', ['as' => 'admin']);
+        Route::get('/users', 'UsersController@index')->name('admin.users.index');
+        Route::get('/users/create', 'UsersController@create')->name('admin.users.create');
+        Route::post('/users', 'UsersController@store')->name('admin.users.store');
+        Route::get('/users/{user}/edit', 'UsersController@edit')->name('admin.users.edit');
+        Route::put('/users/{user}', 'UsersController@update')->name('admin.users.update');
+        Route::delete('/users/{user}', 'UsersController@destroy')->name('admin.users.destroy');
+
+        Route::get('/roles', 'RolesController@index')->name('admin.roles.index');
+        Route::get('/roles/create', 'RolesController@create')->name('admin.roles.create');
+        Route::post('/roles', 'RolesController@store')->name('admin.roles.store');
+        Route::get('/roles/{user}/edit', 'RolesController@edit')->name('admin.roles.edit');
+        Route::delete('/roles/{user}', 'RolesController@destroy')->name('admin.roles.destroy');
+
+        Route::post('/permissions', 'PermissionController@store')->name('admin.permissions.store');
+        Route::post('/permissions/{permission}', 'PermissionController@show')->name('admin.permissions.show');
+        Route::get('/permissions/{permission}/edit', 'PermissionController@edit')->name('admin.permissions.edit');
+        Route::put('/permissions/{permission}', 'PermissionController@update')->name('admin.permissions.update');
+        Route::delete('/permissions/{user}', 'PermissionController@destroy')->name('admin.permissions.destroy');
         Route::get('/permissions/up/{id}', 'PermissionController@up')->name('admin.permission.up');
         Route::get('/permissions/down/{id}', 'PermissionController@down')->name('admin.permission.down');
     });
