@@ -22,6 +22,7 @@ class PermissionController extends Controller
         Permission::create([
             'permission' => $request->permission,
             'role_id' => $request->role_id,
+            'order' => $this->getMaxOrderValue($request->role_id) + 1
         ]);
 
         return redirect(route('admin.permissions.show', $request->role_id));

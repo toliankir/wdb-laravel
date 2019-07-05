@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth', 'role']], function () {
         Route::delete('/roles/{user}', 'RoleController@destroy')->name('admin.roles.destroy');
 
         Route::post('/permissions', 'PermissionController@store')->name('admin.permissions.store');
-        Route::post('/permissions/{permission}', 'PermissionController@show')->name('admin.permissions.show');
+        Route::get('/permissions/{permission}', 'PermissionController@show')->name('admin.permissions.show');
         Route::get('/permissions/{permission}/edit', 'PermissionController@edit')->name('admin.permissions.edit');
         Route::put('/permissions/{permission}', 'PermissionController@update')->name('admin.permissions.update');
         Route::delete('/permissions/{user}', 'PermissionController@destroy')->name('admin.permissions.destroy');
