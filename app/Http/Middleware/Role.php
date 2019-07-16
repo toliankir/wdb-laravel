@@ -19,7 +19,13 @@ class Role
      */
     public function handle($request, Closure $next)
     {
+
+
         if ($request->user()) {
+            if ($request->user()->roleIs() === 'admin') {
+                return $next($request);
+            }
+
             foreach ($request->user()->getPermissions() as $permission) {
                 if ($permission->permission[0] === '!') {
                     $pattern = '/' . str_replace('*', '.*', str_replace('/', '\/', ltrim($permission->permission, '!'))) . '/';
