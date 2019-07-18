@@ -14,4 +14,7 @@ class Role extends Model
         return $this->hasMany('App\Permission', 'role_id', 'id')->orderBy('order', 'asc')->get();
     }
 
+    public function getActions() {
+        return $this->belongsToMany('App\Action', 'roles_actions');
+    }
 }

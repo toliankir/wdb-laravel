@@ -3,6 +3,9 @@
 @section('content')
     <div class="container">
         <h1>Rules</h1>
+        @isset ($id)
+        <h3>{{$id}}</h3>
+        @endisset
         <table class="table table-striped">
             <thead>
             <tr>
@@ -18,7 +21,8 @@
                     <td>{{$rule->id}}</td>
                     <td>{{$rule->controller}}</td>
                     <td>{{$rule->method}}</td>
-                    <td>/{{$rule->uri}}</td>
+                    <td>{{$rule->uri}}</td>
+                    <td><a href={{route('admin.rules.attach', $rule->id)}}>Test</a></td>
                 </tr>
             @empty
                 <tr>
