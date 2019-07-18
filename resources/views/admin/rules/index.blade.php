@@ -9,6 +9,7 @@
                 <th>id</th>
                 <th>Controller</th>
                 <th>Method</th>
+                <th>URL</th>
             </tr>
             </thead>
             <tbody>
@@ -17,13 +18,21 @@
                     <td>{{$rule->id}}</td>
                     <td>{{$rule->controller}}</td>
                     <td>{{$rule->method}}</td>
+                    <td>/{{$rule->uri}}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3">No rules in base</td>
+                    <td colspan="4">No rules in base</td>
                 </tr>
             @endforelse
             </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                    {{$rules->links()}}
+                </td>
+            </tr>
+            </tfoot>
         </table>
     </div>
 @endsection

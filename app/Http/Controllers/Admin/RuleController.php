@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Rule;
+use App\Action;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RuleController extends Controller
 {
     public function index(){
-        $rules = Rule::get();
+        $rules = Action::paginate(10);
+//        dd($rules);
         return view('admin.rules.index', [
             'rules' => $rules
         ]);

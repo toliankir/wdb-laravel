@@ -1,10 +1,10 @@
 <?php
 
-use App\Rule;
+use App\Action;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Route;
 
-class RulesSeeder extends Seeder
+class ActionsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,6 @@ class RulesSeeder extends Seeder
      */
     public function run()
     {
-//        $admin_role = Role::where('name', 'admin')->first();
         foreach (Route::getRoutes() as $route) {
 
             $action = explode('@', $route->getActionname());
@@ -25,19 +24,17 @@ class RulesSeeder extends Seeder
             $method = end($action);
             $uri = $route->uri();
 
-            $rule_exist = Rule::where([
+            $rule_exist = Action::where([
                 'controller' => $controller,
                 'method' => $method
             ])->first();
             if (!$rule_exist) {
-                $rule = new Rule;
+                $rule = new Action();
                 $rule->controller = $controller;
                 $rule->uri = $uri;
                 $rule->method = $method;
                 $rule->save();
             }
-//            $admin_role->permissions()->attach($permission);
         }
-
     }
 }
