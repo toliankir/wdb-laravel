@@ -8,24 +8,34 @@ use App\Http\Controllers\Controller;
 
 class RuleController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $rules = Action::paginate(10);
         return view('admin.rules.index', [
             'rules' => $rules
         ]);
     }
 
-    public function attach($id) {
+    public function attach(Request $request)
+    {
         $rules = Action::paginate(10);
+
+        $attach = $request->input('test');
+        $dettach = array_diff($request->input('testhidden'), $attach);
+
+        // var_dump($attach);
+        // var_dump($dettach);
         $role = auth()->user()->getRole();
-        $action = Action::find($id);
+        foreach ($attach as $key => $rule) { 
+            $role->getActions()->attach($key);
+        }
+        // $action = Action::find($id);
         // dd($action);
-        $role->getActions()->attach($id);
+        // $role->getActions()->attach($id);
         // $user->attach($action);
         return view('admin.rules.index', [
             'rules' => $rules,
-            'id' => $id
+            'id' => 123
         ]);
-
     }
 }

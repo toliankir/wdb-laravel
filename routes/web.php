@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth', 'role']], function () {
         Route::delete('/posts/{post}', 'PostController@destroy')->name('admin.posts.destroy');
 
         Route::get('/rules', 'RuleController@index')->name('admin.rules.index');
-        Route::get('/rules/attach/{id}', 'RuleController@attach')->name('admin.rules.attach');
+        Route::post('/rules/attach/', 'RuleController@attach')->name('admin.rules.attach');
 
         Route::get('/users', 'UserController@index')->name('admin.users.index');
         Route::get('/users/create', 'UserController@create')->name('admin.users.create');
