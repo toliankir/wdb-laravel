@@ -5,37 +5,60 @@ namespace App\Http\Controllers\Admin;
 use App\Action;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Request as IlluminateRequest;
+use App\Role;
 
 class RuleController extends Controller
 {
-    public function index()
+    public function show($role, $currentPage = null)
     {
+        $roleModel = Role::where('role', $role)->first();
+        $selectedActions = collect([]);
+
+        if ($roleModel) {
+            $selectedActions =  $roleModel->getActions->map(function ($name) {
+                return ($name->id);
+            });
+        }
+
+        $currentPage = IlluminateRequest::input('page') ?? $currentPage ?? 1;
+
+        Paginator::currentPageResolver(function () use ($currentPage) {
+            return $currentPage;
+        });
+
         $rules = Action::paginate(10);
         return view('admin.rules.index', [
-            'rules' => $rules
+            'role' => $roleModel,
+            'requestedRole' => $role,
+            'rules' => $rules,
+            'selectedActions' => $selectedActions,
+            'currentPage' => $currentPage
         ]);
     }
 
-    public function attach(Request $request)
+    public function sync(Request $request)
     {
-        $rules = Action::paginate(10);
-
         $attach = $request->input('test');
         $dettach = array_diff($request->input('testhidden'), $attach);
 
-        // var_dump($attach);
-        // var_dump($dettach);
         $role = auth()->user()->getRole();
-        foreach ($attach as $key => $rule) { 
-            $role->getActions()->attach($key);
+
+        //Add new Actions for rule
+        foreach ($attach as $key => $rule) {
+            if (!$role->getActions->contains($key)) {
+                $role->getActions()->attach($key);
+            }
         }
-        // $action = Action::find($id);
-        // dd($action);
-        // $role->getActions()->attach($id);
-        // $user->attach($action);
-        return view('admin.rules.index', [
-            'rules' => $rules,
-            'id' => 123
-        ]);
+
+        //Remove actions form rule
+        foreach ($dettach as $key => $rule) {
+            if ($role->getActions->contains($key)) {
+                $role->getActions()->detach($key);
+            }
+        }
+
+        return $this->show($request->input('role'), $request->input('currentPage'));
     }
 }

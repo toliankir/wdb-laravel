@@ -27,8 +27,9 @@ Route::group(['middleware' => ['auth', 'role']], function () {
         Route::put('/posts/{post}', 'PostController@update')->name('admin.posts.update');
         Route::delete('/posts/{post}', 'PostController@destroy')->name('admin.posts.destroy');
 
-        Route::get('/rules', 'RuleController@index')->name('admin.rules.index');
-        Route::post('/rules/attach/', 'RuleController@attach')->name('admin.rules.attach');
+        // Route::get('/rules', 'RuleController@index')->name('admin.rules.index');
+        Route::get('/rules/{role}', 'RuleController@show')->name('admin.rules.show');
+        Route::post('/rules/{role}', 'RuleController@sync')->name('admin.rules.sync');
 
         Route::get('/users', 'UserController@index')->name('admin.users.index');
         Route::get('/users/create', 'UserController@create')->name('admin.users.create');
@@ -41,6 +42,7 @@ Route::group(['middleware' => ['auth', 'role']], function () {
         Route::get('/roles/create', 'RoleController@create')->name('admin.roles.create');
         Route::post('/roles', 'RoleController@store')->name('admin.roles.store');
         Route::get('/roles/{user}/edit', 'RoleController@edit')->name('admin.roles.edit');
+        Route::put('/roles/{user}', 'RoleController@update')->name('admin.roles.update');
         Route::delete('/roles/{user}', 'RoleController@destroy')->name('admin.roles.destroy');
 
         Route::post('/permissions', 'PermissionController@store')->name('admin.permissions.store');
