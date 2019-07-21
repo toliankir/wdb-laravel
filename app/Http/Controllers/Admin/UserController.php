@@ -96,7 +96,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'active' => $request->active ? true : false,
-            'type' => $request->type
+            'role_id' => $request->type
         ];
 
         if (isset($request->password)) {

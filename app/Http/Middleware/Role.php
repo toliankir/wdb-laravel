@@ -22,6 +22,8 @@ class Role
 
 
         if ($request->user()) {
+            var_dump($request->user()->active);
+
             if ($request->user()->isAdmin()) {
                 return $next($request);
             }
