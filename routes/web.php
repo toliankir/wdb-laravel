@@ -15,17 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('homepage');
 
-Route::group(['middleware' => ['auth', 'role']], function () {
-    Route::get('/posts', 'PostController@index')->name('posts.index');
+Route::group(['middleware' => ['auth', 'role', 'test']], function () {
+    // Route::get('/posts', 'PostController@index')->name('posts.index');
     Route::post('/posts', 'PostController@store')->name('posts.store');
     Route::get('/posts/create', 'PostController@create')->name('posts.create');
+    Route::get('/posts', 'PostController@index')->name('posts.index');
+    Route::put('/posts/{post}', 'PostController@update')->name('admin.posts.update');
+    Route::get('/posts/{post}/edit', 'PostController@edit')->name('admin.posts.edit');
+    Route::delete('/posts/{post}', 'PostController@destroy')->name('admin.posts.destroy');
+
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/', 'DashboardController@index')->name('admin.dashboard');
-        Route::get('/posts', 'PostController@index')->name('admin.posts.index');
-        Route::get('/posts/{post}/edit', 'PostController@edit')->name('admin.posts.edit');
-        Route::put('/posts/{post}', 'PostController@update')->name('admin.posts.update');
-        Route::delete('/posts/{post}', 'PostController@destroy')->name('admin.posts.destroy');
+
 
         // Route::get('/rules', 'RuleController@index')->name('admin.rules.index');
         Route::get('/rules/{role}', 'RuleController@show')->name('admin.rules.show');

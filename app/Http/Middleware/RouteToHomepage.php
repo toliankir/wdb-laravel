@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RouteToHomepage
 {
@@ -20,6 +21,9 @@ class RouteToHomepage
         if ($user) {
             return redirect($user->getRole()->homepage);
         }
+        // echo 'login';
+        // return redirect(route('login'));
+        // return redirect(route('login'));
         return $next($request);
     }
 }

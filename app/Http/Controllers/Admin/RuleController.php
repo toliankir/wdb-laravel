@@ -40,22 +40,21 @@ class RuleController extends Controller
 
     public function sync(Request $request)
     {
-        $attach = $request->input('test');
-        $dettach = array_diff($request->input('testhidden'), $attach);
-
-        $role = auth()->user()->getRole();
+        $roleModel = Role::where('role', $request->input('role'))->first();
+        $attach = $request->input('selected-action');
+        $dettach = array_diff($request->input('all-action'), $attach);
 
         //Add new Actions for rule
         foreach ($attach as $key => $rule) {
-            if (!$role->getActions->contains($key)) {
-                $role->getActions()->attach($key);
+            if (!$roleModel->getActions->contains($key)) {
+                $roleModel->getActions()->attach($key);
             }
         }
 
         //Remove actions form rule
         foreach ($dettach as $key => $rule) {
-            if ($role->getActions->contains($key)) {
-                $role->getActions()->detach($key);
+            if ($roleModel->getActions->contains($key)) {
+                $roleModel->getActions()->detach($key);
             }
         }
 

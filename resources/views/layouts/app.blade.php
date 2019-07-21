@@ -46,7 +46,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{{route('admin.users.index')}}">Users</a>
                                 <a class="dropdown-item" href="{{route('admin.roles.index')}}">Roles</a>
-                                <a class="dropdown-item" href="{{route('admin.posts.index')}}">Posts</a>
+                                <a class="dropdown-item" href="{{route('posts.index')}}">Posts</a>
                                 <a class="dropdown-item" href="{{Route('admin.dashboard')}}">Dashboard</a>
                             </div>
                         </li>

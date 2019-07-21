@@ -37,11 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getRole() {
-         return $this->hasOne('App\Role', 'id', 'role_id')->first();
+    public function getRole()
+    {
+        return $this->hasOne('App\Role', 'id', 'role_id')->first();
     }
 
-    public function getPermissions(){
+    public function getPermissions()
+    {
         $role = $this->getRole();
         if ($role) {
             return $role->getPermissions();
@@ -57,4 +59,12 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isAdmin()
+    {
+        $userRole = $this->hasOne('App\Role', 'id', 'role_id')->first();
+        if ($userRole->role === 'admin') {
+            return true;
+        }
+        return false;
+    }
 }

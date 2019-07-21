@@ -21,6 +21,10 @@ class PostPolicy
     }
 
     public function isAdmin(User $user) {
-        return true;//$user->roleIs() === 'admin';
+        return $user->isAdmin();
+    }
+
+    public function administrate(User $user) {
+        return $this->isAdmin($user);
     }
 }

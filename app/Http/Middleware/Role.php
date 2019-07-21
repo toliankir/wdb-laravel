@@ -22,7 +22,7 @@ class Role
 
 
         if ($request->user()) {
-            if ($request->user()->roleIs() === 'admin') {
+            if ($request->user()->isAdmin()) {
                 return $next($request);
             }
 

@@ -28,8 +28,8 @@
                     <td>{{$rule->method}}</td>
                     <td>{{$rule->uri}}</td>
                     <td>
-                        {{Form::hidden('testhidden['.$rule->id.']',$rule->controller.'@'.$rule->method)}}
-                        {!! Form::checkbox('test['.$rule->id.']', $rule->controller.'@'.$rule->method, $selectedActions->contains($rule->id), ['class' => 'form-control']) !!}
+                        {{Form::hidden('all-action['.$rule->id.']',$rule->controller.'@'.$rule->method)}}
+                        {!! Form::checkbox('selected-action['.$rule->id.']', $rule->controller.'@'.$rule->method, $selectedActions->contains($rule->id), ['class' => 'form-control']) !!}
                     </td>
                 </tr>
                 @empty
