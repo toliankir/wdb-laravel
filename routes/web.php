@@ -24,12 +24,9 @@ Route::group(['middleware' => ['auth', 'role', 'test']], function () {
     Route::get('/posts/{post}/edit', 'PostController@edit')->name('admin.posts.edit');
     Route::delete('/posts/{post}', 'PostController@destroy')->name('admin.posts.destroy');
 
-
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/', 'DashboardController@index')->name('admin.dashboard');
 
-
-        // Route::get('/rules', 'RuleController@index')->name('admin.rules.index');
         Route::get('/rules/{role}', 'RuleController@show')->name('admin.rules.show');
         Route::post('/rules/{role}', 'RuleController@sync')->name('admin.rules.sync');
 

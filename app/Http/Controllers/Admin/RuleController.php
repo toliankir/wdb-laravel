@@ -41,9 +41,9 @@ class RuleController extends Controller
     public function sync(Request $request)
     {
         $roleModel = Role::where('role', $request->input('role'))->first();
-        $attach = $request->input('selected-action');
-        $dettach = array_diff($request->input('all-action'), $attach);
+        $attach = $request->input('selected-action') ?? [];
 
+        $dettach = array_diff($request->input('all-action'), $attach);
         //Add new Actions for rule
         foreach ($attach as $key => $rule) {
             if (!$roleModel->getActions->contains($key)) {
@@ -57,7 +57,11 @@ class RuleController extends Controller
                 $roleModel->getActions()->detach($key);
             }
         }
-
+        // $links = session('urlHistory');
+        // if ($links[2]) {
+        //     return redirect($links[2]);
+        // }
+        // return redirect(URL::previous());
         return $this->show($request->input('role'), $request->input('currentPage'));
     }
 }

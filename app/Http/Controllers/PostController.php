@@ -60,7 +60,7 @@ class PostController extends Controller
         return redirect(route('posts.index'));
     }
 
-     /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -84,18 +84,21 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validate($request, [
             'title' => ['required', 'string', 'min:3', 'max:255'],
-            'body' => ['required', 'string', 'max:128', 'max:1024'],
+            'body' => ['required', 'string', 'min:10', 'max:1024'],
         ]);
 
         Post::find($id)->update([
             'title' => $request->title,
             'body' => $request->body
         ]);
-
+        $links = session('urlHistory');
+        if ($links[2]) {
+            return redirect($links[2]);
+        }
         return redirect(URL::previous());
-        // return redirect(route('posts.index'));
     }
 
     /**
@@ -109,5 +112,4 @@ class PostController extends Controller
         Post::find($id)->delete();
         return redirect(route('posts.index'));
     }
-
 }

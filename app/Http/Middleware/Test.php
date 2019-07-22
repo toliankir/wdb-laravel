@@ -7,6 +7,15 @@ use SplFixedArray;
 
 class Test
 {
+
+    public function splFixedArrayPush(SplFixedArray $array, $value)
+    {
+        for ($i = $array->count() - 1; $i !== 0; $i--) {
+            $array[$i] = $array[$i - 1];
+        }
+        $array[0] = $value;
+        return $array;
+    }
     /**
      * Handle an incoming request.
      *
@@ -16,14 +25,11 @@ class Test
      */
     public function handle($request, Closure $next)
     {
-            if ($request->user()) {
-                $links = session()->has('backLiks') ? session('backLinks') : new SplFixedArray(3);
-                // $links->push('test');
-                var_dump($links);
-                session('backLinks', $links);
-                // echo $request->user()->roleIs();
-            }
-            
-            return $next($request);
+        if ($request->user()) {
+            $links = session('urlHistory') ?? new SplFixedArray(5);
+            $links = $this->splFixedArrayPush($links, $request->fullUrl());
+            session(['urlHistory' => $links]);
+        }
+        return $next($request);
     }
 }

@@ -1,3 +1,12 @@
+@if (count($errors) > 0)
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <p>
     {{ Form::label('title', 'Title', ['class' => 'control-label']) }}
     {{ Form::text('title',
@@ -7,7 +16,8 @@
             'placeholder' => 'Post title',
          ])
     }}
-</p><p>
+</p>
+<p>
     {{Form::textarea("body", old("body") ? old("body") : (!empty($post) ? $post->body : ''),
          [
             "class" => "form-group",
