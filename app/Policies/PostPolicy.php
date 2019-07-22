@@ -20,11 +20,18 @@ class PostPolicy
         //
     }
 
-    public function isAdmin(User $user) {
+    public function isAdmin(User $user)
+    {
         return $user->isAdmin();
     }
 
-    public function administrate(User $user) {
+    public function administrate(User $user)
+    {
         return $this->isAdmin($user);
+    }
+
+    public function userEdit(User $user, Post $post)
+    {
+        return $user->id === $post->created_by || $user->isAdmin();
     }
 }

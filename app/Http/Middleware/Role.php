@@ -22,25 +22,19 @@ class Role
 
 
         if ($request->user()) {
-            var_dump($request->user()->active);
 
             if ($request->user()->isAdmin()) {
                 return $next($request);
             }
 
-            foreach ($request->user()->getPermissions() as $permission) {
-                if ($permission->permission[0] === '!') {
-                    $pattern = '/' . str_replace('*', '.*', str_replace('/', '\/', ltrim($permission->permission, '!'))) . '/';
-                    if (preg_match($pattern, $request->getPathInfo())) {
-                        return redirect('/');
-                    }
-                } else {
-                    $pattern = '/' . str_replace('*', '.*', str_replace('/', '\/', $permission->permission)) . '/';
-                    if (preg_match($pattern, $request->getPathInfo())) {
-                        return $next($request);
-                    }
-                }
+            $action = explode('@', $request->route()->getAction()['controller']);
+            $userActions = $request->user()->getRole()->getActions;
+
+            if ($userActions->where('controller', $action[0])->where('method', $action[1])->count() > 0) {
+                return $next($request);
             }
+
+            return redirect('/');
         }
 
         return $next($request);

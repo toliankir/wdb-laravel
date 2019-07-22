@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class PostController extends Controller
 {
@@ -68,7 +69,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('admin.posts.edit', [
+        return view('posts.edit', [
             'post' => $post
         ]);
     }
@@ -93,7 +94,8 @@ class PostController extends Controller
             'body' => $request->body
         ]);
 
-        return redirect(route('admin.posts.index'));
+        return redirect(URL::previous());
+        // return redirect(route('posts.index'));
     }
 
     /**
