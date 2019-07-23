@@ -57,11 +57,7 @@ class RuleController extends Controller
                 $roleModel->getActions()->detach($key);
             }
         }
-        // $links = session('urlHistory');
-        // if ($links[2]) {
-        //     return redirect($links[2]);
-        // }
-        // return redirect(URL::previous());
+        
         return $this->show($request->input('role'), $request->input('currentPage'));
     }
 }
