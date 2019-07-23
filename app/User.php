@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Config;
 
 class User extends Authenticatable
 {
@@ -53,7 +54,7 @@ class User extends Authenticatable
     public function isAdmin()
     {
         $userRole = $this->hasOne('App\Role', 'id', 'role_id')->first();
-        if ($userRole->role === 'admin') {
+        if ($userRole->role ===  Config::get('constants.defaultRoles.admin.name')) {
             return true;
         }
         return false;

@@ -1,8 +1,14 @@
 <?php
 return [
-    'roles' => [
-        'admin' => 'admins',
-        'user' => 'users'
+    'defaultRoles' => [
+        'admin' => [
+            'name' => 'admins',
+            'homepage' => '/admin'
+        ],
+        'user' => [
+            'name' => 'users',
+            'homepage' => '/posts'
+        ]
     ],
     'defaultUsersPermissions' => [
         [

@@ -15,22 +15,21 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $roleDefaultPermission = Config::get('constants.defaultUsersPermissions');
         DB::table('roles')->insert([
-            'role' => 'admin',
-            'homepage' => '/admin',
+            'role' => Config::get('constants.defaultRoles.admin.name'),
+            'homepage' => Config::get('constants.defaultRoles.admin.homepage'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         $role = new Role;
-        $role->role = 'user';
-        $role->homepage = '/posts';
+        $role->role = Config::get('constants.defaultRoles.user.name');
+        $role->homepage = Config::get('constants.defaultRoles.user.homepage');
         $role->save();
 
-        foreach ($roleDefaultPermission as $permission)  {
-        $action = Action::where('controller', $permission['controller'])->where('method', $permission['method'])->first();
-        $role->getActions()->attach($action->id);
+        foreach (Config::get('constants.defaultUsersPermissions') as $permission) {
+            $action = Action::where('controller', $permission['controller'])->where('method', $permission['method'])->first();
+            $role->getActions()->attach($action->id);
         }
     }
 }
