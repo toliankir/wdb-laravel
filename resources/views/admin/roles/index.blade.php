@@ -29,7 +29,6 @@
                     <td class="w-25">
                         {!! Form::open(['url' => route('admin.roles.destroy', $role->id), 'method' => 'DELETE']) !!}
                         <a class="btn btn-sm btn-success" href="{{route('admin.roles.edit', $role->id)}}">Edit</a>
-                        <a class="btn btn-sm btn-info" href="{{route('admin.permissions.show', $role->id)}}">Permissions</a>
                         <a class="btn btn-sm btn-info" href="{{route('admin.rules.show', $role->role)}}">Actions</a>
                         {{Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm'])}}
                         {!! Form::close() !!}

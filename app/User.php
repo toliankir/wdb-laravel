@@ -42,15 +42,6 @@ class User extends Authenticatable
         return $this->hasOne('App\Role', 'id', 'role_id')->first();
     }
 
-    public function getPermissions()
-    {
-        $role = $this->getRole();
-        if ($role) {
-            return $role->getPermissions();
-        }
-        return [];
-    }
-
     public function roleIs()
     {
         if ($role = $this->hasOne('App\Role', 'id', 'role_id')->first()) {

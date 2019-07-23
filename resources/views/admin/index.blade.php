@@ -30,19 +30,6 @@
                 </ul>
             </div>
         </div>
-        <div class="col-4">
-            <div class="card shadow-sm p-2">
-                <h4 class="text-center">Permissions count:</h4>
-                <p class="text-center">
-                    {{$permissions_count}}
-                </p>
-                <ul>
-                    @foreach($last_permissions as $permission)
-                    <li>{{$permission->permission}}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
     </div>
     <div class="row mt-4">
         <div class="col-6">

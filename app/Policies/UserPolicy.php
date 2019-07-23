@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Post;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PostPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -20,8 +19,13 @@ class PostPolicy
         //
     }
 
-    public function userEdit(User $user, Post $post)
+    public function isAdmin(User $user)
     {
-        return $user->id === $post->created_by || $user->isAdmin();
+        return $user->isAdmin();
+    }
+
+    public function administrate(User $user)
+    {
+        return $this->isAdmin($user);
     }
 }

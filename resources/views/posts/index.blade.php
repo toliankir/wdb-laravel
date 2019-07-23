@@ -9,7 +9,7 @@
                 <th>#id</th>
                 <th>title</th>
                 <th>body(100chars)</th>
-                @can('administrate', App\Post::class)
+                @can('administrate', App\User::class)
                 <th>Owner</th>
                 @endcan
                 <th class="w-15">Actions</th>
@@ -21,12 +21,12 @@
                 <th>{{($posts->currentPage()-1) * $posts->perPage() + 1 + $index}}</th>
                 <td>{{$post->title}}</td>
                 <td>{{substr($post->body,0 , 100)}}</td>
-                @can('administrate', App\Post::class)
+                @can('administrate', App\User::class)
                 <td>{{$post->creator()}}</td>
                 @endcan
                 <td>
                     {!! Form::open(['url' => route('admin.posts.destroy', $post->id), 'method' => 'DELETE']) !!}
-                    
+
                     @can('userEdit', $post)
                     <a class="btn btn-success btn-sm" href="{{route('admin.posts.edit', $post->id)}}">Edit</a>
                     @endcan

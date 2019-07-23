@@ -36,8 +36,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-
-                    @if (\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->roleIs() === 'admin' )
+                @can('administrate', App\User::class)
+                    
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,7 +50,7 @@
                                 <a class="dropdown-item" href="{{Route('admin.dashboard')}}">Dashboard</a>
                             </div>
                         </li>
-                    @endif
+                    @endcan
                 </ul>
 
                 <!-- Right Side Of Navbar -->
