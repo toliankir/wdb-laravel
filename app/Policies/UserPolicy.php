@@ -26,6 +26,7 @@ class UserPolicy
 
     public function administrate(User $user)
     {
+     
         return $this->isAdmin($user);
     }
 }

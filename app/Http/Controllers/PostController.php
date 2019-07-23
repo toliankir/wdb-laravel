@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use App\Helpers\Helper;
+use App\User;
 
 class PostController extends Controller
 {
@@ -17,7 +18,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->can('administrate', Post::class)) {
+      
+        if (Auth::user()->isAdmin()) {
             $posts = Post::orderBy('id', 'DESC')->paginate(5);
         } else {
             $posts = Post::where('created_by', Auth::id())->orderBy('id', 'DESC')->paginate(5);
