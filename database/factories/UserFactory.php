@@ -26,22 +26,3 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
-
-/*
-
-        for ($i = 0; $i < 15; $i++) {
-            DB::table('posts')->insert([
-                'created_by' => 1,
-                'title' => $faker->sentence,
-                'body' => $faker->paragraph(2),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-        }
-         */
-$factory->define(App\Post::class, function (Faker $faker) {
-    return [
-        'title' => $faker->sentence,
-        'body' => $faker->paragraph(2)
-    ];
-});
