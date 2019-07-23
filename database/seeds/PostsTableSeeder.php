@@ -1,9 +1,6 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
-use Illuminate\Support\Facades\DB;
 
 class PostsTableSeeder extends Seeder
 {
@@ -14,26 +11,12 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create('App\Posts');
+        factory(App\Post::class, 15)->create([
+            'created_by' => 1
+        ]);
 
-        for ($i = 0; $i < 15; $i++) {
-            DB::table('posts')->insert([
-                'created_by' => 1,
-                'title' => $faker->sentence,
-                'body' => $faker->paragraph(2),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-        }
-
-        for ($i = 0; $i < 25; $i++) {
-            DB::table('posts')->insert([
-                'created_by' => 2,
-                'title' => $faker->sentence,
-                'body' => $faker->paragraph(2),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-        }
+        factory(App\Post::class, 25)->create([
+            'created_by' => 2
+        ]);
     }
 }

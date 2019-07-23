@@ -16,7 +16,6 @@ Route::get('/', function () {
 })->middleware('homepage');
 
 Route::group(['middleware' => ['auth', 'role', 'test']], function () {
-    // Route::get('/posts', 'PostController@index')->name('posts.index');
     Route::post('/posts', 'PostController@store')->name('posts.store');
     Route::get('/posts/create', 'PostController@create')->name('posts.create');
     Route::get('/posts', 'PostController@index')->name('posts.index');

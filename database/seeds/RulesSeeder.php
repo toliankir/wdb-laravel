@@ -13,7 +13,6 @@ class RulesSeeder extends Seeder
      */
     public function run()
     {
-//        $admin_role = Role::where('name', 'admin')->first();
         foreach (Route::getRoutes() as $route) {
 
             $action = explode('@', $route->getActionname());
@@ -36,7 +35,6 @@ class RulesSeeder extends Seeder
                 $rule->method = $method;
                 $rule->save();
             }
-//            $admin_role->permissions()->attach($permission);
         }
 
     }
