@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use App\Helpers\Helper;
 
 class PostController extends Controller
 {
@@ -94,11 +95,8 @@ class PostController extends Controller
             'title' => $request->title,
             'body' => $request->body
         ]);
-        $links = session('urlHistory');
-        if ($links[2]) {
-            return redirect($links[2]);
-        }
-        return redirect(URL::previous());
+
+        return Helper::getBackLink(2) ? redirect(Helper::getBackLink(2)) : redirect(URL::previous());;
     }
 
     /**

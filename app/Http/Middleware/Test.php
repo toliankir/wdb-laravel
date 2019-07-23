@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use SplFixedArray;
+use App\Helpers\Helper;
 
 class Test
 {
