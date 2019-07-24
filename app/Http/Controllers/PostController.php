@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-      
+
         if (Auth::user()->isAdmin()) {
             $posts = Post::orderBy('id', 'DESC')->paginate(5);
         } else {
@@ -98,7 +98,8 @@ class PostController extends Controller
             'body' => $request->body
         ]);
 
-        return Helper::getBackLink(2) ? redirect(Helper::getBackLink(2)) : redirect(URL::previous());;
+        return redirect(URL::previous());
+        // return Helper::getBackLink(2) ? redirect(Helper::getBackLink(2)) : redirect(URL::previous());
     }
 
     /**
