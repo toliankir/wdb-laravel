@@ -49,6 +49,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
+            'type' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
         ]);
@@ -80,7 +81,8 @@ class UserController extends Controller
 
         return view('admin.users.edit', [
             'user' => $user,
-            'roles' => $roles]);
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -92,6 +94,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'type' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255']
+        ]);
+
         $updateArray = [
             'name' => $request->name,
             'email' => $request->email,

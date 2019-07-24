@@ -1,3 +1,12 @@
+@if (count($errors) > 0)
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <p>
     {{ Form::label('name', 'Username', ['class' => 'control-label']) }}
     {{ Form::text('name',

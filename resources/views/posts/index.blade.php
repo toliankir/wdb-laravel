@@ -28,7 +28,7 @@
                     {!! Form::open(['url' => route('admin.posts.destroy', $post->id), 'method' => 'DELETE']) !!}
 
                     @can('userEdit', $post)
-                    <a class="btn btn-success btn-sm" href="{{route('admin.posts.edit', $post->id)}}">Edit</a>
+                    <a class="btn btn-success btn-sm" href="{{route('posts.edit', $post->id)}}">Edit</a>
                     @endcan
                     {{Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm'])}}
                     {!! Form::close() !!}

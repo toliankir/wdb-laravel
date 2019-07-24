@@ -19,8 +19,8 @@ Route::group(['middleware' => ['auth', 'role', 'test']], function () {
     Route::post('/posts', 'PostController@store')->name('posts.store');
     Route::get('/posts/create', 'PostController@create')->name('posts.create');
     Route::get('/posts', 'PostController@index')->name('posts.index');
-    Route::put('/posts/{post}', 'PostController@update')->name('admin.posts.update');
-    Route::get('/posts/{post}/edit', 'PostController@edit')->name('admin.posts.edit');
+    Route::put('/posts/{post}', 'PostController@update')->name('posts.update');
+    Route::get('/posts/{post}/edit', 'PostController@edit')->name('posts.edit');
     Route::delete('/posts/{post}', 'PostController@destroy')->name('admin.posts.destroy');
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
