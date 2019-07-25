@@ -97,9 +97,7 @@ class PostController extends Controller
             'title' => $request->title,
             'body' => $request->body
         ]);
-
-        return redirect(URL::previous());
-        // return Helper::getBackLink(2) ? redirect(Helper::getBackLink(2)) : redirect(URL::previous());
+        return redirect($request->redirects_to ? $request->redirects_to : route('posts.index'));
     }
 
     /**

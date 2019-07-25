@@ -6,7 +6,8 @@
     <h1>Rules: {{$role->role}}</h1>
     {!! Form::open(['url' => route('admin.rules.sync',$role->role), 'method' => 'POST']) !!}
     {{Form::hidden('role',$role->role)}}
-    {{Form::hidden('currentPage',$currentPage)}}
+    {{ Form::hidden('redirects_to', Request::fullUrl()) }}
+    
 
         <table class="table table-striped">
             <thead>

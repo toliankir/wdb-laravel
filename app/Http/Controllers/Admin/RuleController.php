@@ -11,22 +11,23 @@ use App\Role;
 
 class RuleController extends Controller
 {
-    public function show($role, $currentPage = null)
+    public function show($role)
     {
         $roleModel = Role::where('role', $role)->first();
         $selectedActions = collect([]);
 
         if ($roleModel) {
-            $selectedActions =  $roleModel->getActions->map(function ($name) {
+            $selectedActions = $roleModel->getActions->map(function ($name) {
                 return ($name->id);
             });
         }
+        var_dump(IlluminateRequest::input('page'));
 
-        $currentPage = IlluminateRequest::input('page') ?? $currentPage ?? 1;
-
-        Paginator::currentPageResolver(function () use ($currentPage) {
-            return $currentPage;
-        });
+        if (IlluminateRequest::input('page')) {
+            Paginator::currentPageResolver(function () {
+                return IlluminateRequest::input('page');
+            });
+        }
 
         $rules = Action::paginate(10);
         return view('admin.rules.index', [
@@ -34,7 +35,6 @@ class RuleController extends Controller
             'requestedRole' => $role,
             'rules' => $rules,
             'selectedActions' => $selectedActions,
-            'currentPage' => $currentPage
         ]);
     }
 
@@ -57,7 +57,6 @@ class RuleController extends Controller
                 $roleModel->getActions()->detach($key);
             }
         }
-        
-        return $this->show($request->input('role'), $request->input('currentPage'));
+        return redirect($request->input('redirects_to'));
     }
 }

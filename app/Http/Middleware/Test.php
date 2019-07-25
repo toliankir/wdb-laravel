@@ -28,8 +28,10 @@ class Test
     {
         if ($request->user()) {
             $links = session('urlHistory') ?? new SplFixedArray(5);
-            $links = $this->splFixedArrayPush($links, $request->fullUrl());
-            session(['urlHistory' => $links]);
+            if ($request->fullUrl() !== $links[0]) {
+                $links = $this->splFixedArrayPush($links, $request->fullUrl());
+                session(['urlHistory' => $links]);
+            }
         }
         return $next($request);
     }

@@ -2,12 +2,13 @@
 <div class="alert alert-danger">
     <ul>
         @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+        <li>{{ $error }}</li>
         @endforeach
     </ul>
 </div>
 @endif
 <p>
+    {{ Form::hidden('redirects_to', old('redirects_to') ? old('redirects_to') : URL::previous()) }}
     {{ Form::label('title', 'Title', ['class' => 'control-label']) }}
     {{ Form::text('title',
          old('title') ? old('title') : (!empty($post) ? $post->title : ''),

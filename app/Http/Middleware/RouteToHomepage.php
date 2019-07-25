@@ -21,9 +21,6 @@ class RouteToHomepage
         if ($user) {
             return redirect($user->getRole()->homepage);
         }
-        // echo 'login';
-        // return redirect(route('login'));
-        // return redirect(route('login'));
         return $next($request);
     }
 }

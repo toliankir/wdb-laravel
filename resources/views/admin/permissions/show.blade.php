@@ -39,7 +39,8 @@
             <tfoot>
             <tr>
                 <td colspan="4">
-                    {!! Form::open(['url' => route('admin.permissions.store'),'method' => 'POST', 'class' => 'float-right']) !!}
+                    {{ Form::open(['url' => route('admin.permissions.store'),'method' => 'POST', 'class' => 'float-right']) }}
+                    {{ Form::hidden('redirects_to', old('redirects_to') ? old('redirects_to') : URL::previous()) }}
                     {{ Form::hidden('role_id', $role_id)}}
                     {{ Form::text('permission',
                          old('permission') ? old('permission') : null,
