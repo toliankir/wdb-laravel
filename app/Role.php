@@ -10,9 +10,9 @@ class Role extends Model
         'role', 'homepage'
     ];
 
-    public function getPermissions() {
-        return $this->hasMany('App\Permission', 'role_id', 'id')->orderBy('order', 'asc')->get();
-    }
+    // public function getPermissions() {
+    //     return $this->hasMany('App\Permission', 'role_id', 'id')->orderBy('order', 'asc')->get();
+    // }
 
     public function getActions() {
         return $this->belongsToMany('App\Action', 'roles_actions');

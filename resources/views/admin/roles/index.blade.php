@@ -35,6 +35,7 @@
                     {{Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm'])}}
                     @endcan
                     {!! Form::close() !!}
+                    
                 </td>
                 <td>
                     @forelse ($role->getActions as $action)
