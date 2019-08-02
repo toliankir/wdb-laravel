@@ -4,7 +4,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Role;
-use App\Action;
+use App\Permission;
 
 class RolesTableSeeder extends Seeder
 {
@@ -28,7 +28,7 @@ class RolesTableSeeder extends Seeder
         $role->save();
 
         foreach (Config::get('constants.defaultUsersPermissions') as $permission) {
-            $action = Action::where('controller', $permission['controller'])->where('method', $permission['method'])->first();
+            $action = Permission::where('controller', $permission['controller'])->where('method', $permission['method'])->first();
             $role->getActions()->attach($action->id);
         }
     }

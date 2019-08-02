@@ -1,8 +1,8 @@
 <?php
 
-use Carbon\Carbon;
+use App\Permission;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -13,27 +13,28 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('permissions')->insert([
-            'role_id' => '1',
-            'permission' => '*',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
+        foreach (Route::getRoutes() as $route) {
 
-        DB::table('permissions')->insert([
-            'role_id' => '2',
-            'permission' => '/posts*',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
+            $action = explode('@', $route->getActionname());
+            if (count($action) !== 2) {
+                continue;
+            }
 
-        DB::table('permissions')->insert([
-            'role_id' => '2',
-            'permission' => '!*',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
+            $controller = $action[0];
+            $method = end($action);
+            $uri = $route->uri();
 
-
+            $rule_exist = Permission::where([
+                'controller' => $controller,
+                'method' => $method
+            ])->first();
+            if (!$rule_exist) {
+                $rule = new Permission();
+                $rule->controller = $controller;
+                $rule->uri = $uri;
+                $rule->method = $method;
+                $rule->save();
+            }
+        }
     }
 }

@@ -15,6 +15,6 @@ class Role extends Model
     // }
 
     public function getActions() {
-        return $this->belongsToMany('App\Action', 'roles_actions');
+        return $this->belongsToMany('App\Permission', 'roles_permissions');
     }
 }
