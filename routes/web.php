@@ -26,8 +26,8 @@ Route::group(['middleware' => ['auth', 'role', 'test']], function () {
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/', 'DashboardController@index')->name('admin.dashboard');
 
-        Route::get('/rules/{role}', 'RuleController@show')->name('admin.rules.show');
-        Route::post('/rules/{role}', 'RuleController@sync')->name('admin.rules.sync');
+        Route::get('/permissions/{role}', 'PermissionController@show')->name('admin.permissions.show');
+        Route::post('/permissions/{role}', 'PermissionController@sync')->name('admin.permissions.sync');
 
         Route::get('/users', 'UserController@index')->name('admin.users.index');
         Route::get('/users/create', 'UserController@create')->name('admin.users.create');
@@ -43,13 +43,13 @@ Route::group(['middleware' => ['auth', 'role', 'test']], function () {
         Route::put('/roles/{user}', 'RoleController@update')->name('admin.roles.update');
         Route::delete('/roles/{user}', 'RoleController@destroy')->name('admin.roles.destroy');
 
-        Route::post('/permissions', 'PermissionController@store')->name('admin.permissions.store');
-        Route::get('/permissions/{permission}', 'PermissionController@show')->name('admin.permissions.show');
-        Route::get('/permissions/{permission}/edit', 'PermissionController@edit')->name('admin.permissions.edit');
-        Route::put('/permissions/{permission}', 'PermissionController@update')->name('admin.permissions.update');
-        Route::delete('/permissions/{user}', 'PermissionController@destroy')->name('admin.permissions.destroy');
-        Route::get('/permissions/up/{id}', 'PermissionController@up')->name('admin.permission.up');
-        Route::get('/permissions/down/{id}', 'PermissionController@down')->name('admin.permission.down');
+        // Route::post('/permissions', 'PermissionController@store')->name('admin.permissions.store');
+        // Route::get('/permissions/{permission}', 'PermissionController@show')->name('admin.permissions.show');
+        // Route::get('/permissions/{permission}/edit', 'PermissionController@edit')->name('admin.permissions.edit');
+        // Route::put('/permissions/{permission}', 'PermissionController@update')->name('admin.permissions.update');
+        // Route::delete('/permissions/{user}', 'PermissionController@destroy')->name('admin.permissions.destroy');
+        // Route::get('/permissions/up/{id}', 'PermissionController@up')->name('admin.permission.up');
+        // Route::get('/permissions/down/{id}', 'PermissionController@down')->name('admin.permission.down');
     });
 
 });

@@ -4,7 +4,7 @@
 <div class="container">
     @if ($role)
     <h1>Rules: {{$role->role}}</h1>
-    {!! Form::open(['url' => route('admin.rules.sync',$role->role), 'method' => 'POST']) !!}
+    {!! Form::open(['url' => route('admin.permissions.sync',$role->role), 'method' => 'POST']) !!}
     {{Form::hidden('role',$role->role)}}
     {{ Form::hidden('redirects_to', Request::fullUrl()) }}
     
