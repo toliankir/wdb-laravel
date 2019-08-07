@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Permission;
 use App\Post;
 use App\Role;
 use App\User;
-use App\Action;
+use App\Permission;
 
 class DashboardController extends Controller
 {
@@ -19,8 +18,8 @@ class DashboardController extends Controller
         $lastRoles = Role::latest()->take(5)->get();
         $postsCount = Post::count();
         $lastPosts = Post::latest()->take(5)->get();
-        $actionsCount = Action::count();
-        $lastActions = Action::take(5)->get();
+        $actionsCount = Permission::count();
+        $lastActions = Permission::take(5)->get();
         return view('admin.index', [
             'users_count' => $usersCount,
             'last_users' => $lastUsers,
