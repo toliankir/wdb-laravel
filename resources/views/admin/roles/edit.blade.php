@@ -26,7 +26,7 @@
         @endforelse
 
     </ul>
-    <a class="btn btn-info" href="{{route('admin.rules.show', $role->role)}}">Actions</a>
+    <a class="btn btn-info" href="{{route('admin.permissions.show', $role->role)}}">Permissions</a>
 
 </div>
 @endsection

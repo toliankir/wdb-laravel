@@ -45,12 +45,12 @@
         </div>
         <div class="col-6">
             <div class="card shadow-sm bg-secondary text-white p-2">
-                <h4 class="text-center">Actions:</h4>
-                <p class="text-center">{{$actions_count}}</p>
+                <h4 class="text-center">Permissions:</h4>
+                <p class="text-center">{{$permissions_count}}</p>
                 <ul>
-                    @foreach($last_actions as $action)
+                    @foreach($last_permissions as $permission)
                     <li>
-                        {{$action->controller.'@'.$action->method}}
+                        {{$permission->controller.'@'.$permission->method}}
                     </li>
                     @endforeach
                 </ul>

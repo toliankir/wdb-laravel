@@ -42,17 +42,7 @@ Route::group(['middleware' => ['auth', 'role', 'test']], function () {
         Route::get('/roles/{user}/edit', 'RoleController@edit')->name('admin.roles.edit');
         Route::put('/roles/{user}', 'RoleController@update')->name('admin.roles.update');
         Route::delete('/roles/{user}', 'RoleController@destroy')->name('admin.roles.destroy');
-
-        // Route::post('/permissions', 'PermissionController@store')->name('admin.permissions.store');
-        // Route::get('/permissions/{permission}', 'PermissionController@show')->name('admin.permissions.show');
-        // Route::get('/permissions/{permission}/edit', 'PermissionController@edit')->name('admin.permissions.edit');
-        // Route::put('/permissions/{permission}', 'PermissionController@update')->name('admin.permissions.update');
-        // Route::delete('/permissions/{user}', 'PermissionController@destroy')->name('admin.permissions.destroy');
-        // Route::get('/permissions/up/{id}', 'PermissionController@up')->name('admin.permission.up');
-        // Route::get('/permissions/down/{id}', 'PermissionController@down')->name('admin.permission.down');
     });
 
 });
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

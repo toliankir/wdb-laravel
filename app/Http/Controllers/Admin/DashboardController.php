@@ -18,8 +18,8 @@ class DashboardController extends Controller
         $lastRoles = Role::latest()->take(5)->get();
         $postsCount = Post::count();
         $lastPosts = Post::latest()->take(5)->get();
-        $actionsCount = Permission::count();
-        $lastActions = Permission::take(5)->get();
+        $permissionsCount = Permission::count();
+        $lastPermissions = Permission::take(5)->get();
         return view('admin.index', [
             'users_count' => $usersCount,
             'last_users' => $lastUsers,
@@ -27,8 +27,8 @@ class DashboardController extends Controller
             'last_roles' => $lastRoles,
             'posts_count' => $postsCount,
             'last_posts' => $lastPosts,
-            'actions_count' => $actionsCount,
-            'last_actions' => $lastActions
+            'permissions_count' => $permissionsCount,
+            'last_permissions' => $lastPermissions
         ]);
     }
 }
